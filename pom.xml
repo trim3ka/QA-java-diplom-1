@@ -34,7 +34,6 @@
             <version>4.34.0</version>
         </dependency>
     </dependencies>
-
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>

@@ -37,4 +37,5 @@ class BunTest {
         assertEquals(200, whiteBun.getPrice());
         assertEquals(300, redBun.getPrice());
     }
+
 }
