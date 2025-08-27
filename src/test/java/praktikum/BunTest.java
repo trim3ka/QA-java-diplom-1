@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,10 +20,10 @@ class BunTest {
 
     @BeforeEach
     void setUp() {
-        // Инициализация объектов перед КАЖДЫМ тестом
-        blackBun = new Bun("black bun", 100);
-        whiteBun = new Bun("white bun", 200);
-        redBun = new Bun("red bun", 300);
+        // Инициализация объектов перед тестом
+        blackBun = new Bun("black bun", 100.0f);
+        whiteBun = new Bun("white bun", 200.0f);
+        redBun = new Bun("red bun", 300.0f);
     }
 
     @Test
@@ -33,9 +34,8 @@ class BunTest {
     }
     @Test
     void testBunPrices() {
-        assertEquals(100, blackBun.getPrice());
-        assertEquals(200, whiteBun.getPrice());
-        assertEquals(300, redBun.getPrice());
+        assertEquals(100.0f, blackBun.getPrice());
+        assertEquals(200.0f, whiteBun.getPrice());
+        assertEquals(300.0f, redBun.getPrice());
     }
-
 }
