@@ -8,26 +8,29 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-
 @ExtendWith(MockitoExtension.class)
 public class BurgerGetReceiptTest {
 
     @Mock
-    private Bun mockedBun;
+    private Bun bun;
+
+    @Mock
+    private Ingredient sauce;
+
+    @Mock
+    private Ingredient filling;
+
     private Burger burger;
-    private Ingredient sourCream;
-    private Ingredient dinosaur;
 
     @BeforeEach
     void setUp() {
-        //Инициализируем объекты
         burger = new Burger();
-        sourCream = new Ingredient(IngredientType.SAUCE, "sour cream", 200.0f);
-        dinosaur = new Ingredient(IngredientType.FILLING, "dinosaur", 200.0f);
 
-        when(mockedBun.getPrice()).thenReturn(100.0f);
-        when(mockedBun.getName()).thenReturn("black bun");
-        burger.setBuns(mockedBun);
+        // Настраиваем мок булочки
+        when(bun.getPrice()).thenReturn(100.0f);
+        when(bun.getName()).thenReturn("black bun");
+
+        burger.setBuns(bun);
     }
 
     @Test
@@ -41,8 +44,16 @@ public class BurgerGetReceiptTest {
 
     @Test
     void testGetReceiptWithTwoIngredients() {
-        burger.addIngredient(sourCream);
-        burger.addIngredient(dinosaur);
+        when(sauce.getType()).thenReturn(IngredientType.SAUCE);
+        when(sauce.getName()).thenReturn("sour cream");
+        when(sauce.getPrice()).thenReturn(200.0f);
+
+        when(filling.getType()).thenReturn(IngredientType.FILLING);
+        when(filling.getName()).thenReturn("dinosaur");
+        when(filling.getPrice()).thenReturn(200.0f);
+
+        burger.addIngredient(sauce);
+        burger.addIngredient(filling);
 
         String receipt = burger.getReceipt();
 
@@ -54,19 +65,25 @@ public class BurgerGetReceiptTest {
 
     @Test
     void testGetReceiptEmptyBurger() {
-        //Бургер без ингредиентов
-
         String receipt = burger.getReceipt();
 
         assertTrue(receipt.contains("(==== black bun ====)"));
-        assertFalse(receipt.contains("= null =")); // Не должно быть ингредиентов
+        assertFalse(receipt.contains("= null ="));
         assertTrue(receipt.contains("Price: 200"));
     }
 
     @Test
     void testGetReceiptIngredientsOrder() {
-        burger.addIngredient(sourCream);    // Первый
-        burger.addIngredient(dinosaur);     // Второй
+        when(sauce.getType()).thenReturn(IngredientType.SAUCE);
+        when(sauce.getName()).thenReturn("sour cream");
+        when(sauce.getPrice()).thenReturn(200.0f);
+
+        when(filling.getType()).thenReturn(IngredientType.FILLING);
+        when(filling.getName()).thenReturn("dinosaur");
+        when(filling.getPrice()).thenReturn(200.0f);
+
+        burger.addIngredient(sauce);
+        burger.addIngredient(filling);
 
         String receipt = burger.getReceipt();
 

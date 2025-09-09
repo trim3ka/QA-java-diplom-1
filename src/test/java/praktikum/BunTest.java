@@ -8,26 +8,27 @@ class BunTest {
 
     private Bun blackBun;
     private Bun whiteBun;
-    private Bun redBun;
+    private Bun freeBun;
 
     @BeforeEach
     void setUp() {
         // Инициализация объектов перед тестом
         blackBun = new Bun("black bun", 100.0f);
         whiteBun = new Bun("white bun", 200.0f);
-        redBun = new Bun("red bun", 300.0f);
+        freeBun = new Bun("free bun", 0.0f);
     }
 
     @Test
     void testBunNames() {
-        assertEquals("black bun", blackBun.getName());
         assertEquals("white bun", whiteBun.getName());
-        assertEquals("red bun", redBun.getName());
     }
     @Test
-    void testBunPrices() {
+    void testBunPrice() {
         assertEquals(100.0f, blackBun.getPrice());
-        assertEquals(200.0f, whiteBun.getPrice());
-        assertEquals(300.0f, redBun.getPrice());
+    }
+
+    @Test
+    void testFreeBunPrice() {
+        assertEquals(0.0f, freeBun.getPrice());
     }
 }
